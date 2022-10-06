@@ -1,0 +1,14 @@
+{
+  "name": "basic-dashboard",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dashboard.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "lolotrgeek",
+  "license": "MIT",
+  "dependencies": {
+    "basic": "github:lolotrgeek/Basic"
+  }
+}
