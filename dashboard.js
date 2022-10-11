@@ -1,6 +1,6 @@
-const { Node } = require("basic")
+const { Node } = require("basic-messaging")
 
-const node = new Node("dashboard")
+const node = new Node("trader-dashboard")
 
 let alive = false
 let logs = []
@@ -22,6 +22,7 @@ node.listen("next", next => next_item = next)
 node.listen("nexts", nexts => next_items = nexts)
 node.listen("calls", calls => current_calls = calls )
 
+
 function filter_order(order) {
     if (!order) return {}
     filtered_order = {}
@@ -37,8 +38,7 @@ function filter_order(order) {
 
 function Dashboard(calls, count, nexts, current, logs) {
     console.clear()
-    console.table(node.core.getPeers())
-    // console.table(node.core.getGroups())
+    // console.table(node.channels)
     console.log("Alive:", alive, "Calls:", calls, "| Current Count:", count)
     if (typeof current === 'object' && current.order) current = filter_order(current.order)
     console.table(current)
@@ -58,12 +58,7 @@ function updateDashboard() {
 }
 
 async function runDashboard() {
-    if(logs.length === 0) {node.join('log')}
-    if(!next_items) node.join('nexts')
-    if(next_item.waiting) node.join('next')
-    if(current_calls === 0) node.join('calls')
     await updateDashboard()
-    node.send("dashboard", "Hello!")
     return setTimeout(runDashboard, 2000)
 }
 
